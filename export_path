@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+source_DIR=${0:A:h}
+
+function push_pythonpath() {
+	pth=$1:A
+	echo "+ ${pth}"
+	export PATH=${pth}/script:$PATH
+	export PYTHONPATH=${pth}/package:$PYTHONPATH
+}
+
+export SPEXT_source_DIR=$source_DIR
+
+export SPEXT_repo_DIR=$source_DIR/../repo/
+export SPEXT_static_DIR=$source_DIR/static
+
+push_pythonpath ${source_DIR}
+
+typeset -T PYTHONPATH pythonpath
+
+typeset -U pythonpath
+typeset -U path

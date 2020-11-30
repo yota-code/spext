@@ -1,0 +1,175 @@
+
+#mcp_top {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 50px;
+	background-color: #FCC;
+	/*padding:0.3em;*/
+}
+
+#mcp_left {
+	position: fixed;
+	top:50px;
+	left:0px;
+	width:30%;
+	bottom:0px;
+	overflow-y:auto;
+	overflow-x: scroll;
+	/*background-color: #CFC;*/
+	font-size: smaller;
+}
+
+#mcp_main {
+	position: fixed;
+	top: 50px;
+	bottom: 0px;
+	right: 0px;
+	left: 30%;
+	overflow-y:auto;
+	border-left: 4px black groove;
+}
+
+#mcp_content {
+	max-width: 42em;
+	margin: auto;
+	font-family: 'Cochineal', serif;
+	font-size: 120%;
+}
+
+#mcp_editor {
+	position: absolute;
+	top:15px;
+	left:15px;
+	right:15px;
+	bottom:15px;
+	background-color: #BBB;
+	border: 4px solid #888;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+#mcp_editor > div {
+	background-color: #FFF;
+	border: 1px solid #F88;
+
+	width: calc(50% - 12px);
+	height: calc(100% - 12px);
+	margin: auto;
+}
+
+#mcp_editor > form {
+	position: absolute;
+	top:-10px;
+	right:-10px;
+}
+
+p.spec:hover {
+	background-color : hsl(120, 90%, 90%) ;
+}
+
+p.spec {
+	background-color : none ;
+	  transition: background-color 0.3s linear;
+
+}
+
+.highlighted {
+	background-color : hsl(60, 100%, 80%) ;
+}
+
+
+span.spec:hover {
+	background-color : hsl(240, 100%, 90%) ;
+}
+
+span.spec {
+	background-color : none ;
+	  transition: background-color 0.3s linear;
+
+}
+
+ol {
+	counter-reset: section;
+	list-style-type: none;
+	list-style-position: inside;
+}
+  
+li::before {
+	counter-increment: section;
+	content: counters(section, ".") "\2002";
+	font-family: sans-serif;
+	color: red;
+}
+
+li {
+	white-space: nowrap;
+}
+
+ol {
+	padding-left: 0em;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+sup {
+	font-family: monospace;
+	/*background-color: white;*/
+}
+
+.section_n {
+	color: red;
+}
+
+.paragraph_n {
+	color: green;
+}
+
+.alinea_n {
+	color: blue;
+}
+
+span::before {
+	content: " ";
+  }
+
+/*a:link {
+  color: #999;
+}
+
+a:visited {
+  color: purple;
+}
+*/
+p {
+	position: relative;
+	/*border: 1px solid grey;*/
+	padding: 0.3em;
+}
+p > sup {
+	position: absolute;
+  right: 0px;
+	bottom:0px;
+	width: 4em;
+	text-align:right;
+}
+
+#open_editor {
+	position: fixed;
+	right: 15px;
+	width: 30px;
+	font-size: 30px;
+	height: 30px;
+}
+
+/* {
+	font-family: monospace;
+		background-color: red;
+	  color: white;
+}*/

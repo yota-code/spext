@@ -1,0 +1,104 @@
+body, #mcp_main {
+	font-family: 'Crimson Pro', serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Montserrat', sans-serif;
+}
+
+#mcp_left ol, #mcp_left li {
+  list-style: none;
+}
+
+li > ol {
+  padding-left: 1em;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+#mcp_top {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 50px;
+}
+
+#mcp_left {
+	position: fixed;
+	top:50px;
+	left:0px;
+	width:30%;
+	bottom:0px;
+	overflow-y:auto;
+	overflow-x:scroll;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#mcp_main {
+	position: fixed;
+	top: 50px;
+	bottom: 0px;
+	right: 0px;
+	left: 30%;
+	overflow-y:auto;
+	border-left: 4px black groove;
+}
+
+#mcp_content {
+	max-width: 42em;
+	margin: auto;
+	font-size: larger;
+}
+
+.section_n {
+	color: red;
+	font-family: 'Inconsolata', monospace;
+}
+
+.paragraph_n {
+	color: green;
+	font-family: 'Inconsolata', monospace;
+}
+
+#quick_access {
+	float: right;
+	font-size: 30px;
+	margin: 0.5em 0.5em;
+}
+
+li > strong {
+	background-color: #DDD;
+}
+
+/* alinea */
+.alinea_n {
+	color: hsl(240, 90%, 60%);
+	font-family: 'Inconsolata', monospace;
+}
+
+span.spec {
+	background-color: none ;
+	transition: background-color 0.3s linear;
+}
+
+span.spec:hover {
+	background-color: hsl(240, 90%, 95%);
+}
+
+/* paragraph */
+.paragraph_n {
+	color : hsl(120, 90%, 30%) ;
+	font-family: 'Inconsolata', monospace;
+}
+
+p.spec:hover {
+	background-color: hsl(120, 90%, 95%) ;
+}
+
+p.spec {
+	background-color: none ;
+	  transition: background-color 0.3s linear;
+}

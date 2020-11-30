@@ -1,0 +1,8 @@
+*.pyc
+*.pyo
+
+package/cc_pathlib
+package/marccup
+package/oaktree
+
+.vscode
