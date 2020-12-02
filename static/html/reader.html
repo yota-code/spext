@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>spext - reader</title>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro&family=Inconsolata&family=Montserrat&display=swap" rel="stylesheet"> 
+
+	
+	<script src="_static/js/common.js"></script>
+	<script src="_static/js/history.js"></script>
+	<script src="_static/js/spext-reader.js"></script>
+
+	<link rel="stylesheet" href="_static/css/reader.css">
+</head>
+<body>
+
+<div id="mcp_top">
+	<div id="book_selection">
+		<form name="book_select" action="javascript:initial_load( document.forms.book_select.book_pth.value )">
+			<label>book:</label>
+			<input name="book_pth" size="85" list="book_lst" disabled placeholder="Loading in progress...">
+			<input type="submit" value="load">
+		</form>
+	</div>
+</div>
+<div id="mcp_left" class="clickable"></div>
+<div id="mcp_main">
+	<div id="quick_access">
+		<a hidden id="quick_debug" href="debug">🐞</a>
+		<a id="quick_editor" href="editor">✍️</a>
+	</div>
+	<div id="mcp_content"></div>
+</div>
+<datalist id="book_lst"></datalist>
+
+<script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<script>
+	var hist = new HistoryEngine();
+
+	var m_reader = new SpextReaderEngine();
+
+	function initial_load(value) {
+		hist.push({'b': value});
+	}
+</script>
+</body>
+</html>

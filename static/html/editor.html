@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>spext - editor</title>
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro&family=Montserrat&display=swap" rel="stylesheet"> 
+
+	<script src="_static/js/common.js"></script>
+	<script src="_static/js/history.js"></script>
+	<script src="_static/js/spext-editor.js"></script>
+
+	<link rel="stylesheet" href="_static/css/editor.css">
+
+	<link rel="stylesheet" data-name="vs/editor/editor.main" href="_static/js/ext/monaco-editor/min/vs/editor/editor.main.css">
+</head>
+<body>
+	<form>
+		<input type="button" value="💾">
+	</form>
+	<h1>spext - editor</h1>
+	<table>
+		<tr>
+			<td class="editor_td"><div id="monaco_editor"></div></td>
+			<td class="preview_td"><div id="marccup_preview"></div></td>
+		</tr>
+	</table>
+</div>
+
+<script>var require = { paths: { 'vs': '_static/js/ext/monaco-editor/min/vs' } };</script>
+
+<script src="_static/js/ext/monaco-editor/min/vs/loader.js"></script>
+<script src="_static/js/ext/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+<script src="_static/js/ext/monaco-editor/min/vs/editor/editor.main.js"></script>
+
+<script>
+
+	var hist = new HistoryEngine();
+	
+	var m_editor = new SpextEditorEngine();
+		
+	</script>
+</body>
+</html>

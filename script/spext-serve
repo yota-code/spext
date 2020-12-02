@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+import cherrypy
+
+from cc_pathlib import Path
+
+import spext.server
+import spext.shelf
+import spext.proxy
+
+static_dir = Path(os.environ['SPEXT_static_DIR'])
+repo_dir = Path(os.environ['SPEXT_repo_DIR'])
+
+# cherrypy.server.ssl_module = 'builtin'
+
+# cherrypy.server.ssl_certificate = str(marccup_static_dir / .. / "data" / "certificate.pem")
+# cherrypy.server.ssl_private_key = str(marccup_static_dir / .. / "data" / "private.key")
+
+app_conf = {
+	'/': {
+		'tools.caching.on': False,
+		'tools.sessions.on': True
+	},
+	'/_static': {
+		'tools.staticdir.on' : True,
+		'tools.staticdir.dir' : str(static_dir),
+	},
+}
+
+s = spext.shelf.SpextShelf(repo_dir)
+p = spext.proxy.SpextProxy(repo_dir)
+
+u = spext.server.SpextServer(s, p)
+
+cherrypy.tree.mount(u, '/', app_conf)
+
+cherrypy.engine.start()
+cherrypy.engine.block()
