@@ -91,6 +91,14 @@ class BookRef() :
 			pth.write_text(f'%%{self.handler.toc.get_indicative_title(s)}\n\n' + txt)
 
 	def compute(self) :
+		if self.handler.base_dir.name == '_test' :
+			debug_dir = self.handler.base_dir / '.debug'
+			debug_dir.make_dirs()
+			p_indent = oaktree.proxy.braket.BraketProxy()
+
+		else :
+			debug_dir = None
+
 		u = marccup.MarccupParser()
 		for s in self :
 			pth = self.handler.get_part_pth(s)
@@ -100,12 +108,14 @@ class BookRef() :
 				self.section_to_item_map[s] = dict()
 
 			o_section = u.parse_section(txt)
+
+			if debug_dir is not None :
+				p_indent.save(o_section, debug_dir / f'{s:05d}.bkt')
+
 			for o in o_section.walk() :
 				if o.ident is not None :
 					tag = f'{o.space}.{o.tag}' if o.space is not None else o.tag
 					self.section_to_item_map[s][o.ident] = tag
-
-		print(self.section_to_item_map)
 
 		(self.handler.cache_dir / 'ref.json').save(self.section_to_item_map)
 
