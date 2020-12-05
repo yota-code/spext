@@ -12,10 +12,7 @@ import oaktree
 import oaktree.proxy.html5
 import oaktree.proxy.braket
 
-import marccup.parser.book
-# import marccup.composer.html5
-
-import spext.composer.artel
+import spext.composer.html5
 # import spext.server.proxy
 
 class SpextServer() :
@@ -63,7 +60,7 @@ class SpextServer() :
 	@cherrypy.expose
 	@cherrypy.tools.json_out()
 	def get_book_lst(self, * pos, ** nam) :
-		return self.shelf.book_set
+		return sorted(self.shelf.book_map)
 
 	def get_index(self, * pos, ** nam) :
 		b = self.shelf[nam['b']]
@@ -74,7 +71,7 @@ class SpextServer() :
 		if key is None :
 			raise cherrypy.HTTPError(400)
 
-		if key not in self.shelf.book_set :
+		if key not in self.shelf.book_map :
 			raise cherrypy.HTTPError(403)
 
 		try :
@@ -92,7 +89,6 @@ class SpextServer() :
 	@cherrypy.expose
 	def _get_ref(self, * pos, ** nam) :
 		return self.get_file(nam.get('b', None), '.cache/ref.json')
-
 
 	@cherrypy.expose
 	def _get_preview(self, * pos, ** nam) :

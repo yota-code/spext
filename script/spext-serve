@@ -8,6 +8,7 @@ import cherrypy
 from cc_pathlib import Path
 
 import spext.server
+
 import spext.shelf
 import spext.proxy
 
@@ -32,6 +33,8 @@ app_conf = {
 
 s = spext.shelf.SpextShelf(repo_dir)
 p = spext.proxy.SpextProxy(repo_dir)
+
+s.scan(check=True)
 
 u = spext.server.SpextServer(s, p)
 

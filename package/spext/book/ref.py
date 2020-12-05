@@ -24,19 +24,14 @@ class BookRef() :
 	def __init__(self, handler) :
 		self.handler = handler
 
-		self._next_ident = None
-
+	def _start_check(self):
 		self.section_to_item_map = dict()
-		self.ident_set = set()
+
+	def _clear_check(self) :
+		del self.part_to_fill_set
 
 	def __iter__(self) :
 		return (int(pth.fname) for pth in (self.handler.base_dir / 'part').glob('*'))
-
-	@property
-	def next_ident(self) :
-		self._next_ident += 1
-		self.ident_set.add(self.last_ident)
-		return self._next_ident
 
 	def scan(self) :
 		""" scan for ident found on parts, and note in which there is some missings """
@@ -71,7 +66,7 @@ class BookRef() :
 				else :
 					i = int(i)
 					self.section_to_item_map[s][i] = None
-					self.ident_set.add(i)
+					self.handler.ident_set.add(i)
 
 	def fill_missing(self) :
 		# give a ident to items which still miss it, and update the title in the process
@@ -86,9 +81,9 @@ class BookRef() :
 
 			if s in self.part_to_fill_set :
 				print(f"Info: missing item ident filled in {pth}")
-				txt = empty_rec.sub((lambda res: f'§{self.next_ident:05d}'), txt)
+				txt = empty_rec.sub((lambda res: f'§{self.handler.next_ident:05d}'), txt)
 
-			pth.write_text(f'%%{self.handler.toc.get_indicative_title(s)}\n\n' + txt)
+			pth.write_text(f'%%{self.handler.toc.get_line(s)}\n\n' + txt)
 
 	def compute(self) :
 		if self.handler.base_dir.name == '_test' :
@@ -109,8 +104,8 @@ class BookRef() :
 
 			o_section = u.parse_section(txt)
 
-			if debug_dir is not None :
-				p_indent.save(o_section, debug_dir / f'{s:05d}.bkt')
+			# if debug_dir is not None :
+			# 	p_indent.save(o_section, debug_dir / f'{s:05d}.bkt')
 
 			for o in o_section.walk() :
 				if o.ident is not None :

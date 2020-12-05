@@ -91,3 +91,10 @@ class Html5Composer__base__() :
 		sub_dst.add_text(''.join(src.sub))
 
 		return sub_dst, False
+
+	def _compose_table_cell(self, src, dst) :
+		if 'header' in src.flag :
+			sub_dst = dst.grow('th')
+		else :
+			sub_dst = dst.grow('td')
+		return sub_dst, True	

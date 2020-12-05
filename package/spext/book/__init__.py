@@ -23,6 +23,38 @@ class BookHandler() :
 		self.cache_dir = self.base_dir / '.cache'
 		self.cache_dir.make_dirs()
 
+		(self.cache_dir / 'part').make_dirs()
+
+		self.log_pth = None
+
+		self.ident_set = None
+		self._last_ident = None
+
+	@property
+	def next_ident(self) :
+		self._last_ident += 1
+		if self.ident_set is not None :
+			if self._last_ident in self.ident_set :
+				self.log(f"Error: Duplicate ident: {self._last_ident}")
+			self.ident_set.add(self.last_ident)
+		return self._last_ident
+
+	def _start_check(self) :
+
+		self.log_pth = self.base_dir / 'check.log'
+		self.log_pth.write_text('')
+		self.log(f"{datetime.datetime.now()} >>> BookHandler.check()")
+
+		self.ident_set = set()
+
+		self.toc._start_check()
+		self.ref._start_check()
+
+	def _clear_check(self) :
+
+		self.ref._clear_check()
+		self.toc._clear_check()
+
 		self.log_pth = None
 
 	def log(self, * pos) :
@@ -40,14 +72,13 @@ class BookHandler() :
 		
 		"""
 
-		self.log_pth = self.base_dir / 'check.log'
-		self.log_pth.write_text('')
-
-		self.log(f"{datetime.datetime.now()} >>> BookHandler.check()")
+		self._start_check()
 
 		self.toc.load()
-		
 		self.ref.scan()
+
+		self._last_ident = max(self.ident_set)
+		self.ident_set = None
 
 		self.toc.fill_missing()
 
@@ -56,10 +87,10 @@ class BookHandler() :
 		self.ref.fill_missing()
 
 		self.ref.compute()
-
 		self.toc.save()
 
-		self.log_pth = None
+		self._clear_check()
+
 
 	def update_part(self, s_ident) :
 		""" procède à la vérification limitée à la seule partie modifiée """

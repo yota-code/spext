@@ -6,7 +6,7 @@ class SpextReaderEngine {
 
 		this.attach_events();
 
-		this.title_map = new Map();
+		this.toc_map = new Map();
 		this.ref_map = new Map();
 
 		if ( ! hist.state.get("b") ) {
@@ -15,10 +15,9 @@ class SpextReaderEngine {
 
 			// and we load the list of the books
 			this._book_lst__load__();
-
 		} else {
 			var h_div = document.getElementById("mcp_top").clear();
-			h_div.add_text(hist.state.get("b"));
+			h_div.grow('h2').add_text(hist.state.get("b"));
 			hist.apply();
 		}
 
@@ -81,7 +80,7 @@ class SpextReaderEngine {
 	load_toc() {
 		return prom_get_JSON(`_get_toc?&b=${hist.state.get('b')}`).then( (obj) => {
 
-			self.toc = obj;
+			this.toc_lst = obj;
 
 			var h_div = document.getElementById("mcp_left");
 			h_div.clear();
@@ -93,23 +92,23 @@ class SpextReaderEngine {
 			var prev_length = 0;
 
 			var n = 0;
-			for (let [num, title, ident] of obj) {
+			for (let [num, title, ident] of this.toc_lst) {
 
-				this.title_map.set(ident, [num, title]);
+				this.toc_map.set(ident, [num, title]);
 
 				var curr_length = num.length;
 
 				if ( curr_length == prev_length + 1 ) {
-					//console.log("STAGE ONE", num, title, ident);
+					// console.log("STAGE ONE", num, title, ident);
 					var h_li = li_lst.last();
 					var h_ol = h_li.grow('ol');
 					ol_lst.push(h_ol);
 				} else if ( curr_length == prev_length ) {
-					//console.log("STAGE TWO", num, title, ident);
+					// console.log("STAGE TWO", num, title, ident);
 					h_ol = ol_lst.last();
 					li_lst.pop();
 				} else {
-					//console.log("STAGE THREE", num, title, ident);
+					// console.log("STAGE THREE", num, title, ident);
 					ol_lst = ol_lst.slice(0, curr_length);
 					li_lst = li_lst.slice(0, curr_length);
 				}
@@ -140,7 +139,7 @@ class SpextReaderEngine {
 			h_div.innerHTML = obj.response;
 
 			var h_h1 = document.createElement("h1");
-			var [num, title] = this.title_map.get(ident);
+			var [num, title] = this.toc_map.get(ident);
 			h_h1.add_text(`${num.join('.')}.\u2002${title}`);
 			h_h1.grow('sup', {'class': "section_n"}).add_text(`§${ident}`);
 			h_div.firstElementChild.prepend(h_h1);
@@ -184,9 +183,9 @@ class SpextReaderEngine {
 				var book = (res[1] === undefined) ? (hist.state.get('b')) : (res[1]);
 				var ident = parseInt(res[3]);
 
-				if (this.title_map.has( ident )) {
+				if (this.toc_map.has( ident )) {
 
-					var [num, title] = this.title_map.get(ident);
+					var [num, title] = this.toc_map.get(ident);
 					h_a.setAttribute('href', `reader?b=${book}&s=${ident}`);
 					h_a.setAttribute('onclick', `event.preventDefault(); hist.push({'s':'${ident}', 'b':'${book}'});`);
 					h_a.clear().add_text(`${num.join('.')}.\u2002${title} `);
@@ -195,7 +194,7 @@ class SpextReaderEngine {
 				} else if (this.ref_map.has( ident )) {
 
 					var [tag, section] = this.ref_map.get(ident);
-					var [num, title] = this.title_map.get(section);
+					var [num, title] = this.toc_map.get(section);
 
 					h_a.setAttribute('href', `reader?b=${book}&s=${section}&h=${tag}_${ident}`);
 					h_a.setAttribute('onclick', `event.preventDefault(); hist.push({'s':'${section}', 'b':'${book}', 'h':'${tag}_${ident}'});`);
