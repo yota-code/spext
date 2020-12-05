@@ -161,15 +161,12 @@ class SpextReaderEngine {
 
 	update_mathjax(h_parent) {
 		for (let h_block of h_parent.querySelectorAll("p.mcp-math")) {{
-			console.log(h_block.textContent);
 			mathjax_render(h_block.textContent.trim(), h_block, true);
 		}}
 	
 		for (let h_inline of h_parent.querySelectorAll("span.mcp-math")) {{
-			console.log(h_inline.textContent);
 			mathjax_render(h_inline.textContent.trim(), h_inline, false);
 		}}
-	
 		MathJax.startup.document.clear();
 		MathJax.startup.document.updateDocument();
 	}

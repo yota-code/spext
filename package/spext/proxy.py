@@ -39,12 +39,15 @@ class SpextProxy() :
 		u = spext.composer.html5.Html5Composer__base__()
 		u.compose(o_section, o_container)
 
+		f = oaktree.proxy.html5.Html5Proxy(indent='', fragment=True)
+		html_txt = f.save(o_container.sub[0])
+
 		if debug_dir :
 			g = oaktree.proxy.braket.BraketProxy()
 			g.save(o_section, debug_dir / '4_parsed.bkt')
 
-		f = oaktree.proxy.html5.Html5Proxy(indent='', fragment=True)
-		html_txt = f.save(o_container.sub[0])
+			h = oaktree.proxy.html5.Html5Proxy(fragment=True)
+			h.save(o_section, debug_dir / '5_composed.html')
 
 		return html_txt
 

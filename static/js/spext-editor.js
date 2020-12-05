@@ -9,7 +9,7 @@ class SpextEditorEngine {
 		this.is_modified = true;
 	}
 
-	hist_apply__callback__( change ) {
+	hist_apply__callback__(change) {
 		console.log( change._debug() );
 	}
 
@@ -44,7 +44,6 @@ class SpextEditorEngine {
 	load_preview() {
 
 		var txt = this.editor.getValue();
-		console.log("load_preview()" + txt);
 		return prom_post(
 			`_get_preview?&b=${hist.state.get('b')}&s=${hist.state.get('s')}`,
 			txt,
@@ -52,7 +51,19 @@ class SpextEditorEngine {
 		).then((obj) => {
 			var h_div = document.getElementById("marccup_preview");
 			h_div.innerHTML = obj.response;
+			this.update_mathjax(h_div);
 		});
 	}
 
+	update_mathjax(h_parent) {
+		for (let h_block of h_parent.querySelectorAll("p.mcp-math")) {{
+			mathjax_render(h_block.textContent.trim(), h_block, true);
+		}}
+	
+		for (let h_inline of h_parent.querySelectorAll("span.mcp-math")) {{
+			mathjax_render(h_inline.textContent.trim(), h_inline, false);
+		}}
+		MathJax.startup.document.clear();
+		MathJax.startup.document.updateDocument();
+	}
 }
