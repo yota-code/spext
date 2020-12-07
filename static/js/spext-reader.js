@@ -144,9 +144,9 @@ class SpextReaderEngine {
 			h_h1.grow('sup', {'class': "section_n"}).add_text(`§${ident}`);
 			h_div.firstElementChild.prepend(h_h1);
 
-			this.update_mathjax(h_div);
 			this.update_crosslink(h_div);
 			this.update_reference(h_div);
+			this.update_mathjax(h_div);
 
 			var h_a = document.getElementById("quick_editor");
 			h_a.setAttribute('href', "editor?" + hist.state.toString());
@@ -197,19 +197,24 @@ class SpextReaderEngine {
 					h_a.setAttribute('onclick', `event.preventDefault(); hist.push({'s':'${section}', 'b':'${book}', 'h':'${tag}_${ident}'});`);
 					h_a.clear().add_text(`${tag} #${ident}`);
 				}
-
 			}
 		}
 	}
 
 	update_reference(h_parent) {
-		for (let h of h_parent.querySelectorAll(".spec")) {
-			var [tag, val] = h.id.split('_');
+		console.log("SpextReaderEngine.update_reference()")
+		for (let h of h_parent.querySelectorAll(".mcp-ident")) {
+			var [prefix, tag, val] = h.id.split('_');
 			var ident = parseInt(val);
+			console.log(h.id, h.id.split('_'), tag, ident);
 			if (tag === 'paragraph') {
 				h.grow('br');
+				h.grow('sup', {'class': `${tag}_n`}).add_text(`§${ident}`);
+			} else if ( tag === 'math') {
+				h.add_text(`\n\\tag{§${ident}}`);
+			} else {
+				h.grow('sup', {'class': `${tag}_n`}).add_text(`§${ident}`);
 			}
-			h.grow('sup', {'class': `${tag}_n`}).add_text(`§${ident}`);
 		}
 	}
 

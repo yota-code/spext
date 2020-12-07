@@ -48,7 +48,7 @@ class Html5Composer__base__() :
 
 			if child_src.ident is not None :
 				sub_dst.ident = f"mcp_{child_src.tag}_{child_src.ident}"
-				if child_src.tag in ['paragraph', 'alinea'] :
+				if child_src.tag in ['paragraph', 'alinea', 'math'] :
 					sub_dst.style.add('mcp-ident')
 
 			if sub_continue :

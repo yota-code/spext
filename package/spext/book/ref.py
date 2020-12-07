@@ -81,7 +81,7 @@ class BookRef() :
 
 			if s in self.part_to_fill_set :
 				print(f"Info: missing item ident filled in {pth}")
-				txt = empty_rec.sub((lambda res: f'§{self.handler.next_ident:05d}'), txt)
+				txt = self.empty_rec.sub((lambda res: f'§{self.handler.next_ident:05d}'), txt)
 
 			pth.write_text(f'%%{self.handler.toc.get_line(s)}\n\n' + txt)
 
@@ -110,7 +110,7 @@ class BookRef() :
 			for o in o_section.walk() :
 				if o.ident is not None :
 					tag = f'{o.space}.{o.tag}' if o.space is not None else o.tag
-					self.section_to_item_map[s][o.ident] = tag
+					self.section_to_item_map[s][int(o.ident)] = tag
 
 		(self.handler.cache_dir / 'ref.json').save(self.section_to_item_map)
 
