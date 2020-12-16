@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
+import fcntl
 import os
+import socket
+import struct
 import sys
 
 import cherrypy
@@ -12,6 +15,16 @@ import spext.server
 import spext.shelf
 import spext.proxy
 
+
+def get_ip_address(ifname):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(
+        s.fileno(),
+        0x8915, # SIOCGIFADDR
+        struct.pack('256s', ifname[:15].encode('utf8'))
+    )[20:24])
+
+data_dir = Path(os.environ['SPEXT_data_DIR'])
 static_dir = Path(os.environ['SPEXT_static_DIR'])
 repo_dir = Path(os.environ['SPEXT_repo_DIR'])
 
@@ -19,6 +32,11 @@ repo_dir = Path(os.environ['SPEXT_repo_DIR'])
 
 # cherrypy.server.ssl_certificate = str(marccup_static_dir / .. / "data" / "certificate.pem")
 # cherrypy.server.ssl_private_key = str(marccup_static_dir / .. / "data" / "private.key")
+
+cherrypy.config.update({
+	'server.socket_host': get_ip_address('eth0'),
+	'server.socket_port': 22012,
+})
 
 app_conf = {
 	'/': {
@@ -37,6 +55,15 @@ p = spext.proxy.SpextProxy(repo_dir)
 s.scan(check=True)
 
 u = spext.server.SpextServer(s, p)
+
+try :
+	import ah_auth as auth
+
+	a = auth.AuthFront(data_dir / "allowed.json", 'spext')
+	cherrypy.tree.mount(a, '/auth', app_conf)
+	u.auth_login = True
+except :
+	u.auth_login = False
 
 cherrypy.tree.mount(u, '/', app_conf)
 

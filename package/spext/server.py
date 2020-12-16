@@ -3,6 +3,7 @@
 import datetime
 import html
 import os
+import urllib
 
 import cherrypy
 
@@ -13,9 +14,12 @@ import oaktree.proxy.html5
 import oaktree.proxy.braket
 
 import spext.composer.html5
+
 # import spext.server.proxy
 
 class SpextServer() :
+
+	auth_login = True
 
 	def __init__(self, shelf=None, proxy=None) :
 
@@ -35,9 +39,13 @@ class SpextServer() :
 		return (self.static_dir / "html" / "index.html").read_text().format('\n'.join(stack))
 
 	@cherrypy.expose
-	def reader(self, * pos, ** nam) :
+	def reader(self, *pos, **nam) :
 		print(f"SpextServer.reader({pos}, {nam})")
-		return (self.static_dir / "html" / "reader.html").read_bytes()
+		url = cherrypy.url(qs=cherrypy.request.query_string)
+		if "user_login" not in cherrypy.session and self.auth_login :
+			raise cherrypy.HTTPRedirect('/auth/login?url={0}'.format(urllib.parse.quote(url)))
+		else :
+			return (self.static_dir / "html" / "reader.html").read_bytes()
 
 	@cherrypy.expose
 	def editor(self, * pos, ** nam) :

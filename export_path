@@ -11,8 +11,9 @@ function push_pythonpath() {
 
 export SPEXT_source_DIR=$source_DIR
 
-export SPEXT_repo_DIR=$source_DIR/repo/
+export SPEXT_repo_DIR=$source_DIR/repo
 export SPEXT_static_DIR=$source_DIR/static
+export SPEXT_data_DIR=$source_DIR/data
 
 push_pythonpath ${source_DIR}
 
