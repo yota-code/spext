@@ -46,8 +46,7 @@ class SpextProxy() :
 			g = oaktree.proxy.braket.BraketProxy()
 			g.save(o_section, debug_dir / '4_parsed.bkt')
 
-			h = oaktree.proxy.html5.Html5Proxy(fragment=True)
-			h.save(o_section, debug_dir / '5_composed.html')
+			(debug_dir / "5_composed.html").write_text(html_txt.replace('><', '>\n<'))
 
 		return html_txt
 
