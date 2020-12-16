@@ -1,6 +1,9 @@
 *.pyc
 *.pyo
 
+repo/afcs
+repo/index.json
+
 package/cc_pathlib
 package/marccup
 package/oaktree
