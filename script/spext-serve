@@ -17,12 +17,15 @@ import spext.proxy
 
 
 def get_ip_address(ifname):
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    return socket.inet_ntoa(fcntl.ioctl(
-        s.fileno(),
-        0x8915, # SIOCGIFADDR
-        struct.pack('256s', ifname[:15].encode('utf8'))
-    )[20:24])
+	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	try :
+		return socket.inet_ntoa(fcntl.ioctl(
+			s.fileno(),
+			0x8915, # SIOCGIFADDR
+			struct.pack('256s', ifname[:15].encode('utf8'))
+		)[20:24])
+	except OSError :
+		return '127.0.0.1'
 
 data_dir = Path(os.environ['SPEXT_data_DIR'])
 static_dir = Path(os.environ['SPEXT_static_DIR'])
@@ -63,7 +66,7 @@ try :
 	cherrypy.tree.mount(a, '/auth', app_conf)
 	u.auth_login = True
 except :
-	u.auth_login = False
+	pass
 
 cherrypy.tree.mount(u, '/', app_conf)
 

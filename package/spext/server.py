@@ -19,7 +19,7 @@ import spext.composer.html5
 
 class SpextServer() :
 
-	auth_login = True
+	auth_login = False
 
 	def __init__(self, shelf=None, proxy=None) :
 
@@ -50,7 +50,11 @@ class SpextServer() :
 	@cherrypy.expose
 	def editor(self, * pos, ** nam) :
 		print(f"SpextServer.editor({pos}, {nam})")
-		return (self.static_dir / "html" / "editor.html").read_bytes()
+		url = cherrypy.url(qs=cherrypy.request.query_string)
+		if "user_login" not in cherrypy.session and self.auth_login :
+			raise cherrypy.HTTPRedirect('/auth/login?url={0}'.format(urllib.parse.quote(url)))
+		else :
+			return (self.static_dir / "html" / "editor.html").read_bytes()
 
 	@cherrypy.expose
 	def debug(self, * pos, ** nam) :
