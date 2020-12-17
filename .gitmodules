@@ -1,0 +1,8 @@
+[submodule "submodule/marccup"]
+	path = submodule/marccup
+	url = https://github.com/yota-code/marccup.git
+	branch = spext
+[submodule "submodule/oaktree"]
+	path = submodule/oaktree
+	url = https://github.com/yota-code/oaktree.git
+	branch = spext
