@@ -4,10 +4,6 @@
 repo/afcs
 repo/index.json
 
-package/cc_pathlib
-package/marccup
-package/oaktree
-
 static/js/ext
 
 .vscode
