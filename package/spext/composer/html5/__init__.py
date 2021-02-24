@@ -98,4 +98,14 @@ class Html5Composer__base__() :
 			sub_dst = dst.grow('th')
 		else :
 			sub_dst = dst.grow('td')
-		return sub_dst, True	
+		return sub_dst, True
+
+	def _compose_critical(self, src, dst) :
+		if 'block' in src.flag :
+			sub_dst = dst.grow('p', style={'mcp-critical',})
+		else :
+			sub_dst = dst.grow('span', style={'mcp-critical',})
+
+		sub_dst.add_text(''.join(src.sub))
+
+		return sub_dst, False

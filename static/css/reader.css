@@ -16,6 +16,7 @@ table, tr, td, th {
 
 td, th {
 	border: 1px solid black;
+	padding: 0.2em 0.5em;
 }
 
 #mcp_left ol, #mcp_left li {
@@ -114,4 +115,9 @@ p.mcp-ident:hover {
 p.mcp-ident {
 	background-color: none ;
 	  transition: background-color 0.3s linear;
+}
+
+.mcp-critical {
+	font-weight: bold;
+	color: red;
 }
