@@ -92,12 +92,12 @@ li > strong {
 	font-family: 'Inconsolata', monospace;
 }
 
-span.spec {
+span.mcp-ident {
 	background-color: none ;
 	transition: background-color 0.3s linear;
 }
 
-span.spec:hover {
+span.mcp-ident:hover {
 	background-color: hsl(240, 90%, 95%);
 }
 
@@ -107,11 +107,11 @@ span.spec:hover {
 	font-family: 'Inconsolata', monospace;
 }
 
-p.spec:hover {
+p.mcp-ident:hover {
 	background-color: hsl(120, 90%, 95%) ;
 }
 
-p.spec {
+p.mcp-ident {
 	background-color: none ;
 	  transition: background-color 0.3s linear;
 }

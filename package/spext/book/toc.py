@@ -69,7 +69,8 @@ class BookToc() :
 				self.toc_map[ident] = [tuple(num), title]
 				self.handler.ident_set.add(ident)
 				
-			self.toc_lst.append((num, title, ident)) # temporaire, elle sera effacée une fois la résolution terminée
+			# temporaire, elle sera effacée une fois la résolution terminée
+			self.toc_lst.append([num, title, ident]) 
 
 	def fill_missing(self) :
 		# give a section ident to title which still miss it

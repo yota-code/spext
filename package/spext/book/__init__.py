@@ -8,7 +8,8 @@ import spext.book.toc
 import spext.book.ref
 
 class BookHandler() :
-	""" cette classe permet de manipuler les livres, elle devrait être chargé une fois pour chacun d'eux :
+	""" cette classe permet de manipuler les livres,
+	elle devrait être chargé une fois pour chacun d'eux :
 	* pour mettre à jour le cache
 	* pour effectuer des vérifications
 

@@ -15,7 +15,6 @@ import spext.server
 import spext.shelf
 import spext.proxy
 
-
 def get_ip_address(ifname):
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	try :
@@ -53,9 +52,9 @@ app_conf = {
 }
 
 s = spext.shelf.SpextShelf(repo_dir)
-p = spext.proxy.SpextProxy(repo_dir)
-
 s.scan(check=True)
+
+p = spext.proxy.SpextProxy(repo_dir)
 
 u = spext.server.SpextServer(s, p)
 

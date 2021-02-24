@@ -12,7 +12,8 @@ class Html5Composer__base__() :
 	tr_map = {
 		"paragraph" : "p",
 		"table_row" : "tr",
-		"page": "article"
+		"page": "article",
+		"alinea": "span",
 	}
 	
 	def __init__(self) :

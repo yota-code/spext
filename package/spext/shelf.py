@@ -28,9 +28,9 @@ class SpextShelf() :
 		print(f">>> SpextShelf.scan({self.repo_dir})")
 
 		for pth in self.repo_dir.rglob('__doc__') :
-
 			key = str(pth.parent.relative_to(self.repo_dir))
-			print(key)
+			print(f"SpextShelf.scan({key})")
+			
 			value = spext.book.BookHandler(pth.parent)
 
 			if check :

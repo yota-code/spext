@@ -64,8 +64,8 @@ class SpextServer() :
 			txt = txt.replace('\t', '   ')
 			txt = html.escape(txt)
 			return txt
-		marccup_txt = to_pre(self.repo_dir / nam['b'] / 'part' / f"{int(nam['s']):05d}")
-		parsed_txt = to_pre(self.repo_dir / nam['b'] / '_tmp' / f"{int(nam['s']):05d}" / 'parsed.bkt')
+		marccup_txt = to_pre(self.repo_dir / nam['b'] / '.debug' / f"{int(nam['s']):05d}/0_original.mcp")
+		parsed_txt = to_pre(self.repo_dir / nam['b'] / '.debug' / f"{int(nam['s']):05d}/4_parsed.bkt")
 		composed_txt = to_pre(self.repo_dir / nam['b'] / '.cache' / 'part' / f"{int(nam['s']):05d}")
 		return (self.static_dir / "html" / "debug.html").read_text().format(marccup_txt, parsed_txt, composed_txt)
 

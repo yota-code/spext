@@ -1,0 +1,21 @@
+%%= sandbox §13111
+
+This page exposes quickly the principle of this documentation system. But you can also try to edit it and preview the impacts of your modifications, by clicking on the '<edit> icon on the top right corner.
+
+Not everything is perfect here, lot of work is in progress, don't mind the glitches.
+
+The idea behind '<spext> is to offer a way to store, edit and handle a textual specification which is compatible with the following objectives :
+
+* the document should be easily versionnable with usual VCS tools (ie. git). The format should be plain enough to be easy to merge and diff directly. A file based organisation was proposed, with a syntax close to markdown (but not markdown)
+* the document should make it easy to track parts of the text. For this, a chapter / paragraph / alinea structure is proposed and allow fine grained traceability (here in red / green / blue respectively)
+* the main formatting options should be available with a sleek, non instrusive and expandable markup system:
+	* mathematical equations
+	* figures
+	* tables
+	* extract of code
+	* etc. to be implemented
+* the text marking should be semantic not cosmetic, tags could be expanded but some are already proposed to mark meaningful parts of speech like scade elements: node, const, vars, etc.
+
+Concerning the syntax, I invite you to have a look at all previous chapters which exposes some of it (and to click on the '<debug> button to have a look at the process)
+
+For the server side, an automatic system based on a checksum, automatically regenerate files on-the-fly. And embedded editor is proposed but the original text can also be edited with a text editor.

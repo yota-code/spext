@@ -6,3 +6,7 @@
 	path = submodule/oaktree
 	url = https://github.com/yota-code/oaktree.git
 	branch = spext
+[submodule "submodule/cc_pathlib"]
+	path = submodule/cc_pathlib
+	url = https://github.com/yota-code/cc_pathlib.git
+	branch = master
